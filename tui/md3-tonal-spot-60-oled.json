@@ -1,0 +1,235 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "md3PrimaryLight": "#855426",
+    "md3SecondaryLight": "#745a44",
+    "md3TertiaryLight": "#64612a",
+    "md3ErrorLight": "#a73b21",
+    "md3OnSurfaceLight": "#3c3026",
+    "md3OnSurfaceVariantLight": "#6b5c51",
+    "md3SurfaceLight": "#fff8f5",
+    "md3SurfaceContainerLight": "#fdebdf",
+    "md3SurfaceContainerHighLight": "#f8e5d8",
+    "md3OutlineVariantLight": "#c1aea1",
+    "md3OutlineLight": "#88786c",
+    "md3SurfaceContainerHighestLight": "#f3dfd0",
+    "md3OnSecondaryContainerLight": "#664d38",
+    "md3OnErrorContainerLight": "#6e1400",
+    "md3PrimaryDark": "#f2bc8f",
+    "md3SecondaryDark": "#e3c0a5",
+    "md3TertiaryDark": "#fffada",
+    "md3ErrorDark": "#f97758",
+    "md3OnSurfaceDark": "#f6e2d3",
+    "md3OnSurfaceVariantDark": "#baa89a",
+    "md3SurfaceDark": "#000000",
+    "md3SurfaceContainerDark": "#201811",
+    "md3SurfaceContainerHighDark": "#271e16",
+    "md3OutlineVariantDark": "#53453b",
+    "md3OutlineDark": "#827267",
+    "md3SurfaceContainerHighestDark": "#2f241a",
+    "md3OnSecondaryContainerDark": "#dbb99e",
+    "md3OnErrorContainerDark": "#ff9b82"
+  },
+  "theme": {
+    "primary": {
+      "dark": "md3PrimaryDark",
+      "light": "md3PrimaryLight"
+    },
+    "secondary": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "accent": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "error": {
+      "dark": "md3ErrorDark",
+      "light": "md3ErrorLight"
+    },
+    "warning": {
+      "dark": "md3OnErrorContainerDark",
+      "light": "md3OnErrorContainerLight"
+    },
+    "success": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "info": {
+      "dark": "md3OnSecondaryContainerDark",
+      "light": "md3OnSecondaryContainerLight"
+    },
+    "text": {
+      "dark": "md3OnSurfaceDark",
+      "light": "md3OnSurfaceLight"
+    },
+    "textMuted": {
+      "dark": "md3OnSurfaceVariantDark",
+      "light": "md3OnSurfaceVariantLight"
+    },
+    "background": {
+      "dark": "md3SurfaceDark",
+      "light": "md3SurfaceLight"
+    },
+    "backgroundPanel": {
+      "dark": "md3SurfaceContainerDark",
+      "light": "md3SurfaceContainerLight"
+    },
+    "backgroundElement": {
+      "dark": "md3SurfaceContainerHighDark",
+      "light": "md3SurfaceContainerHighLight"
+    },
+    "border": {
+      "dark": "md3OutlineVariantDark",
+      "light": "md3OutlineVariantLight"
+    },
+    "borderActive": {
+      "dark": "md3OutlineDark",
+      "light": "md3OutlineLight"
+    },
+    "borderSubtle": {
+      "dark": "md3SurfaceContainerHighestDark",
+      "light": "md3SurfaceContainerHighestLight"
+    },
+    "diffAdded": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "diffRemoved": {
+      "dark": "md3ErrorDark",
+      "light": "md3ErrorLight"
+    },
+    "diffContext": {
+      "dark": "md3OnSurfaceVariantDark",
+      "light": "md3OnSurfaceVariantLight"
+    },
+    "diffHunkHeader": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "diffHighlightAdded": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "diffHighlightRemoved": {
+      "dark": "md3OnErrorContainerDark",
+      "light": "md3OnErrorContainerLight"
+    },
+    "diffAddedBg": {
+      "dark": "md3SurfaceContainerHighestDark",
+      "light": "md3SurfaceContainerHighLight"
+    },
+    "diffRemovedBg": {
+      "dark": "md3SurfaceContainerHighestDark",
+      "light": "md3SurfaceContainerHighestLight"
+    },
+    "diffContextBg": {
+      "dark": "md3SurfaceContainerDark",
+      "light": "md3SurfaceContainerLight"
+    },
+    "diffLineNumber": {
+      "dark": "md3OutlineDark",
+      "light": "md3OutlineLight"
+    },
+    "diffAddedLineNumberBg": {
+      "dark": "md3SurfaceContainerHighestDark",
+      "light": "md3SurfaceContainerHighLight"
+    },
+    "diffRemovedLineNumberBg": {
+      "dark": "md3SurfaceContainerHighestDark",
+      "light": "md3SurfaceContainerHighestLight"
+    },
+    "markdownText": {
+      "dark": "md3OnSurfaceDark",
+      "light": "md3OnSurfaceLight"
+    },
+    "markdownHeading": {
+      "dark": "md3PrimaryDark",
+      "light": "md3PrimaryLight"
+    },
+    "markdownLink": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "markdownLinkText": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "markdownCode": {
+      "dark": "md3OnSecondaryContainerDark",
+      "light": "md3OnSecondaryContainerLight"
+    },
+    "markdownBlockQuote": {
+      "dark": "md3OnSurfaceVariantDark",
+      "light": "md3OnSurfaceVariantLight"
+    },
+    "markdownEmph": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "markdownStrong": {
+      "dark": "md3PrimaryDark",
+      "light": "md3PrimaryLight"
+    },
+    "markdownHorizontalRule": {
+      "dark": "md3OutlineDark",
+      "light": "md3OutlineLight"
+    },
+    "markdownListItem": {
+      "dark": "md3OnSurfaceDark",
+      "light": "md3OnSurfaceLight"
+    },
+    "markdownListEnumeration": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "markdownImage": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "markdownImageText": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "markdownCodeBlock": {
+      "dark": "md3OnSurfaceDark",
+      "light": "md3OnSurfaceLight"
+    },
+    "syntaxComment": {
+      "dark": "md3OutlineDark",
+      "light": "md3OutlineLight"
+    },
+    "syntaxKeyword": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "syntaxFunction": {
+      "dark": "md3PrimaryDark",
+      "light": "md3PrimaryLight"
+    },
+    "syntaxVariable": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "syntaxString": {
+      "dark": "md3TertiaryDark",
+      "light": "md3TertiaryLight"
+    },
+    "syntaxNumber": {
+      "dark": "md3OnSecondaryContainerDark",
+      "light": "md3OnSecondaryContainerLight"
+    },
+    "syntaxType": {
+      "dark": "md3SecondaryDark",
+      "light": "md3SecondaryLight"
+    },
+    "syntaxOperator": {
+      "dark": "md3OnSurfaceVariantDark",
+      "light": "md3OnSurfaceVariantLight"
+    },
+    "syntaxPunctuation": {
+      "dark": "md3OnSurfaceDark",
+      "light": "md3OnSurfaceLight"
+    }
+  }
+}

@@ -10,20 +10,20 @@
  *   color by design (there is no guaranteed amber/green/cyan in M3).
  * - Refs may repeat across keys (same idiom as upstream `ayu.json`,
  *   e.g. `diffLineNumber: diffContext`).
- * - `*Container`/`on*Container` pair roles flip readability across modes
- *   AND contrasts (verified by probing: high contrast turns every
+ * - `*Container`/`on*Container` pair roles flip readability across modes,
+ *   contrasts AND variants (verified by probing: high contrast turns every
  *   `on*Container` into a background-matching extreme, `tertiaryContainer`
- *   is light-in-dark for some variants and dark-in-dark for others).
- *   Therefore the 13 pair-dependent keys never live in the base map.
- *   Use {@link resolveMapping} to get the full 50-entry map for one
- *   (mode, contrast group) combination.
+ *   is light-in-dark for some variants and dark-in-dark for others,
+ *   monochrome inverts the primary pair). Therefore pair-dependent keys
+ *   never live in the base map. Use {@link resolveMapping} to get the
+ *   full 50-entry map for one (mode, contrast group, variant) combination.
  *
  * @typedef {Record<string, string>} M3ToTuiMapping TUI key -> M3 role
  * @typedef {'light' | 'dark'} Appearance
  * @typedef {'default' | 'reduced' | 'high'} ContrastGroup
  */
 
-/** Contrast- and appearance-neutral entries (37 keys). */
+/** Contrast- and appearance-neutral entries (38 keys). */
 export const M3_TO_TUI_BASE = Object.freeze({
     // Semantic (4 of 7)
     primary: 'primary',
@@ -60,11 +60,13 @@ export const M3_TO_TUI_BASE = Object.freeze({
     markdownImage: 'secondary',
     markdownImageText: 'tertiary',
     markdownCodeBlock: 'onSurface',
-    // Syntax (6 of 9)
+    // Syntax (7 of 9)
     syntaxComment: 'outline',
     syntaxKeyword: 'secondary',
     syntaxFunction: 'primary',
     syntaxVariable: 'tertiary',
+    syntaxNumber: 'onSecondaryContainer',
+    syntaxType: 'secondary',
     syntaxOperator: 'onSurfaceVariant',
     syntaxPunctuation: 'onSurface'
 });
@@ -83,17 +85,17 @@ export const STD_OVERRIDES = Object.freeze({
 });
 
 /**
- * Standard-contrast light-only entries. `errorContainer` is too saturated
- * as a light wash, so removed-line washes fall back to a neutral container
- * (readable, untinted — documented compromise).
+ * Standard-contrast light-only entries. Vivid variants (Fidelity, Vibrant)
+ * push `tertiaryContainer`/`errorContainer` too saturated for light washes,
+ * so all washes are neutral containers here as well; diff hue survives
+ * through the red/green diff *text* roles.
  */
 export const LIGHT_STD_OVERRIDES = Object.freeze({
     success: 'tertiary',
     syntaxString: 'tertiary',
-    syntaxType: 'onPrimaryContainer',
     diffHighlightAdded: 'tertiary',
-    diffAddedBg: 'tertiaryContainer',
-    diffAddedLineNumberBg: 'tertiaryContainer',
+    diffAddedBg: 'surfaceContainerHigh',
+    diffAddedLineNumberBg: 'surfaceContainerHigh',
     diffRemovedBg: 'surfaceContainerHighest',
     diffRemovedLineNumberBg: 'surfaceContainerHighest'
 });
@@ -101,19 +103,19 @@ export const LIGHT_STD_OVERRIDES = Object.freeze({
 /**
  * Standard-contrast dark-only entries. Container pair roles are
  * variant roulette in dark schemes (e.g. `tertiaryContainer` is near-white
- * for Expressive-dark but near-black for FruitSalad-dark), so dark text
- * keys stay on the structurally safe roles and the added wash is neutral.
- * The removed wash keeps its red tint (guard-verified per run).
+ * for Expressive-dark but near-black for FruitSalad-dark, and vivid
+ * variants push `errorContainer` too bright for a wash), so dark washes
+ * stay neutral and dark text keys stay on structurally safe roles.
+ * Diff hue survives through the red/green diff *text* roles.
  */
 export const DARK_STD_OVERRIDES = Object.freeze({
     success: 'tertiary',
     syntaxString: 'tertiary',
-    syntaxType: 'secondary',
     diffHighlightAdded: 'tertiary',
     diffAddedBg: 'surfaceContainerHighest',
     diffAddedLineNumberBg: 'surfaceContainerHighest',
-    diffRemovedBg: 'errorContainer',
-    diffRemovedLineNumberBg: 'errorContainer'
+    diffRemovedBg: 'surfaceContainerHighest',
+    diffRemovedLineNumberBg: 'surfaceContainerHighest'
 });
 
 /**
@@ -125,6 +127,18 @@ export const REDUCED_OVERRIDES = Object.freeze({
     syntaxComment: 'onSurfaceVariant',
     diffLineNumber: 'onSurfaceVariant',
     markdownHorizontalRule: 'onSurfaceVariant'
+});
+
+/**
+ * Monochrome-only entries (both modes). The monochrome scheme inverts the
+ * primary pair (`onPrimaryContainer` matches the background in both modes)
+ * and its mid-gray `tertiaryContainer` fails as a light wash, so these
+ * three keys use the same roles as their dark-std counterparts.
+ */
+export const MONOCHROME_OVERRIDES = Object.freeze({
+    syntaxType: 'secondary',
+    diffAddedBg: 'surfaceContainerHighest',
+    diffAddedLineNumberBg: 'surfaceContainerHighest'
 });
 
 /**
@@ -152,13 +166,15 @@ export const HIGH_OVERRIDES = Object.freeze({
 /**
  * @param {Appearance} mode
  * @param {ContrastGroup} contrastGroup
+ * @param {string} variantName PascalCase MCU variant name (`Monochrome`, …)
  * @returns {M3ToTuiMapping} full 50-entry map for one combination
  */
-export function resolveMapping(mode, contrastGroup) {
-    if (contrastGroup === 'high') return Object.freeze({ ...M3_TO_TUI_BASE, ...HIGH_OVERRIDES });
+export function resolveMapping(mode, contrastGroup, variantName) {
+    const mono = variantName === 'Monochrome' ? MONOCHROME_OVERRIDES : {};
+    if (contrastGroup === 'high') return Object.freeze({ ...M3_TO_TUI_BASE, ...HIGH_OVERRIDES, ...mono });
     const modeOverrides = mode === 'light' ? LIGHT_STD_OVERRIDES : DARK_STD_OVERRIDES;
     if (contrastGroup === 'reduced') {
-        return Object.freeze({ ...M3_TO_TUI_BASE, ...STD_OVERRIDES, ...modeOverrides, ...REDUCED_OVERRIDES });
+        return Object.freeze({ ...M3_TO_TUI_BASE, ...STD_OVERRIDES, ...modeOverrides, ...REDUCED_OVERRIDES, ...mono });
     }
-    return Object.freeze({ ...M3_TO_TUI_BASE, ...STD_OVERRIDES, ...modeOverrides });
+    return Object.freeze({ ...M3_TO_TUI_BASE, ...STD_OVERRIDES, ...modeOverrides, ...mono });
 }
