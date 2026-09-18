@@ -1,15 +1,38 @@
 {
-  "name": "opencode-material-theme",
-  "version": "0.0.1-20260918.a",
-  "description": "",
+  "name": "@sandlada/opencode-material-theme",
+  "version": "0.0.1",
+  "description": "Material Design 3 (Material You) themes for the OpenCode TUI: 194 static JSON themes across 9 variants x 12 hues, plain + OLED.",
   "scripts": {
-    "generate": "bun scripts/generate-md3-tokens.mjs"
+    "generate": "bun scripts/generate-md3-tokens.mjs",
+    "matrix": "bun scripts/generate-md3-matrix.mjs --out ./tui"
   },
-  "keywords": [],
+  "keywords": [
+    "opencode",
+    "tui",
+    "theme",
+    "themes",
+    "material-design-3",
+    "material-you",
+    "md3",
+    "material-color-utilities",
+    "oled"
+  ],
   "author": "Kai Orion & Sandlada",
   "license": "MIT",
   "type": "module",
-  "dependencies": {
+  "files": [
+    "tui/",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "opencode-md3-themes": "./bin/install.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
     "@material/material-color-utilities": "^0.4.0",
     "@sandlada/mcu-helper": "^0.1.0-20260830.a"
   }
