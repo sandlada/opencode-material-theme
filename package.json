@@ -1,0 +1,16 @@
+{
+  "name": "opencode-material-theme",
+  "version": "0.0.1-20260918.a",
+  "description": "",
+  "scripts": {
+    "generate": "bun scripts/generate-md3-tokens.mjs"
+  },
+  "keywords": [],
+  "author": "Kai Orion & Sandlada",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@material/material-color-utilities": "^0.4.0",
+    "@sandlada/mcu-helper": "^0.1.0-20260830.a"
+  }
+}

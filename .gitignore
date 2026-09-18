@@ -1,0 +1,16 @@
+node_modules
+*.md
+!README.md
+!SECURITY.md
+!CODE_OF_CONDUCT.md
+package-lock.json
+dist
+build
+output
+.claude
+.codex
+.opencode
+.gemini
+.jules
+superpower
+superpowers
