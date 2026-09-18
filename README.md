@@ -1,16 +1,17 @@
 # MD3 Themes for OpenCode TUI
 
 194 static [Material Design 3](https://m3.material.io/) (Material You) themes
-for the [OpenCode](https://opencode.ai/) TUI: 9 variants × 12 hues,
+for the [OpenCode](https://opencode.ai/) TUI: 9 variants × 12 hues
+(`monochrome` only ships hue `0`),
 plain + OLED, each file carrying **both** light and dark appearances
 (OpenCode switches itself).
 
-| Light                                                                    | Dark                                                                   |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| ![Fidelity 150 light OLED](docs/fidelity-150-light-oled.png)             | ![Fidelity 150 dark OLED](docs/fidelity-150-dark-oled.png)             |
-| ![Expressive 30 Light OLED](docs/real-demo-expressive-30-light-oled.png) | ![Expressive 30 Dark OLED](docs/real-demo-expressive-30-dark-oled.png) |
+| Light                                                                                                                                            | Dark                                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Fidelity 150 light OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/fidelity-150-light-oled.png)             | ![Fidelity 150 dark OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/fidelity-150-dark-oled.png)             |
+| ![Expressive 30 Light OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/real-demo-expressive-30-light-oled.png) | ![Expressive 30 Dark OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/real-demo-expressive-30-dark-oled.png) |
 
-More screenshots in [`docs/`](docs/).
+More screenshots in [`docs/` on GitHub](https://github.com/sandlada/opencode-material-theme/tree/main/docs).
 
 ## Requirements
 
@@ -20,7 +21,8 @@ More screenshots in [`docs/`](docs/).
 
 ## Install
 
-One-click full install (194 themes) into your user themes directory:
+One-click full install (194 themes) into your user themes directory
+(requires the published package, v0.0.1+):
 
 ```sh
 npx -y -p @sandlada/opencode-material-theme opencode-md3-themes install
