@@ -1,13 +1,17 @@
 /**
  * M3 -> OpenCode TUI key mapping (source of truth, v1).
  *
- * Maps each of the 50 {@link TUI_TOKEN_KEYS} to one Material Design 3
+ * Maps 42 of the 50 {@link TUI_TOKEN_KEYS} to one Material Design 3
  * dynamic-color role (camelCase, as returned by
- * `createTheme(opts)(source)` `light`/`dark` maps).
+ * `createTheme(opts)(source)` `light`/`dark` maps). The other 8 keys
+ * (Git diff red/green) live in `src/md3-diff-palettes.js` and resolve to
+ * fixed-seed harmonized custom-color ladders instead of scheme roles.
  *
  * Rules followed:
  * - Only symbolic M3 roles, never hand-picked hex. Hues follow the source
  *   color by design (there is no guaranteed amber/green/cyan in M3).
+ *   The diff palettes are the single exception (fixed seeds + harmonize,
+ *   documented in `src/md3-diff-palettes.js`).
  * - Refs may repeat across keys (same idiom as upstream `ayu.json`,
  *   e.g. `diffLineNumber: diffContext`).
  * - `*Container`/`on*Container` pair roles flip readability across modes,
@@ -16,14 +20,14 @@
  *   is light-in-dark for some variants and dark-in-dark for others,
  *   monochrome inverts the primary pair). Therefore pair-dependent keys
  *   never live in the base map. Use {@link resolveMapping} to get the
- *   full 50-entry map for one (mode, contrast group, variant) combination.
+ *   42-entry map for one (mode, contrast group, variant) combination.
  *
  * @typedef {Record<string, string>} M3ToTuiMapping TUI key -> M3 role
  * @typedef {'light' | 'dark'} Appearance
  * @typedef {'default' | 'reduced' | 'high'} ContrastGroup
  */
 
-/** Contrast- and appearance-neutral entries (38 keys). */
+/** Contrast- and appearance-neutral entries (36 keys). */
 export const M3_TO_TUI_BASE = Object.freeze({
     // Semantic (4 of 7)
     primary: 'primary',
@@ -39,9 +43,8 @@ export const M3_TO_TUI_BASE = Object.freeze({
     border: 'outlineVariant',
     borderActive: 'outline',
     borderSubtle: 'surfaceContainerHighest',
-    // Diff (6 of 12)
-    diffAdded: 'tertiary',
-    diffRemoved: 'error',
+    // Diff (4 of 12; added/removed text, washes and highlights live in
+    // src/md3-diff-palettes.js as fixed-seed harmonized ladders)
     diffContext: 'onSurfaceVariant',
     diffHunkHeader: 'secondary',
     diffContextBg: 'surfaceContainer',
@@ -80,42 +83,23 @@ export const STD_OVERRIDES = Object.freeze({
     warning: 'onErrorContainer',
     info: 'onSecondaryContainer',
     markdownCode: 'onSecondaryContainer',
-    syntaxNumber: 'onSecondaryContainer',
-    diffHighlightRemoved: 'onErrorContainer'
+    syntaxNumber: 'onSecondaryContainer'
 });
 
 /**
- * Standard-contrast light-only entries. Vivid variants (Fidelity, Vibrant)
- * push `tertiaryContainer`/`errorContainer` too saturated for light washes,
- * so all washes are neutral containers here as well; diff hue survives
- * through the red/green diff *text* roles.
+ * Standard-contrast light-only entries.
  */
 export const LIGHT_STD_OVERRIDES = Object.freeze({
     success: 'tertiary',
-    syntaxString: 'tertiary',
-    diffHighlightAdded: 'tertiary',
-    diffAddedBg: 'surfaceContainerHigh',
-    diffAddedLineNumberBg: 'surfaceContainerHigh',
-    diffRemovedBg: 'surfaceContainerHighest',
-    diffRemovedLineNumberBg: 'surfaceContainerHighest'
+    syntaxString: 'tertiary'
 });
 
 /**
- * Standard-contrast dark-only entries. Container pair roles are
- * variant roulette in dark schemes (e.g. `tertiaryContainer` is near-white
- * for Expressive-dark but near-black for FruitSalad-dark, and vivid
- * variants push `errorContainer` too bright for a wash), so dark washes
- * stay neutral and dark text keys stay on structurally safe roles.
- * Diff hue survives through the red/green diff *text* roles.
+ * Standard-contrast dark-only entries.
  */
 export const DARK_STD_OVERRIDES = Object.freeze({
     success: 'tertiary',
-    syntaxString: 'tertiary',
-    diffHighlightAdded: 'tertiary',
-    diffAddedBg: 'surfaceContainerHighest',
-    diffAddedLineNumberBg: 'surfaceContainerHighest',
-    diffRemovedBg: 'surfaceContainerHighest',
-    diffRemovedLineNumberBg: 'surfaceContainerHighest'
+    syntaxString: 'tertiary'
 });
 
 /**
@@ -131,21 +115,17 @@ export const REDUCED_OVERRIDES = Object.freeze({
 
 /**
  * Monochrome-only entries (both modes). The monochrome scheme inverts the
- * primary pair (`onPrimaryContainer` matches the background in both modes)
- * and its mid-gray `tertiaryContainer` fails as a light wash, so these
- * three keys use the same roles as their dark-std counterparts.
+ * primary pair (`onPrimaryContainer` matches the background in both modes).
  */
 export const MONOCHROME_OVERRIDES = Object.freeze({
-    syntaxType: 'secondary',
-    diffAddedBg: 'surfaceContainerHighest',
-    diffAddedLineNumberBg: 'surfaceContainerHighest'
+    syntaxType: 'secondary'
 });
 
 /**
  * High-contrast entries (both modes). High contrast inverts the pair
  * roles: every `on*Container` matches the background, while `*Container`
- * fills become mid-tone and text-safe. Tinted washes cannot survive this,
- * so all four tinted washes fall back to a neutral container.
+ * fills become mid-tone and text-safe. Diff keys are palette-driven (see
+ * `src/md3-diff-palettes.js`) and unaffected by these overrides.
  */
 export const HIGH_OVERRIDES = Object.freeze({
     warning: 'errorContainer',
@@ -154,20 +134,15 @@ export const HIGH_OVERRIDES = Object.freeze({
     markdownCode: 'secondary',
     syntaxString: 'primaryContainer',
     syntaxNumber: 'secondary',
-    syntaxType: 'primary',
-    diffHighlightAdded: 'tertiaryContainer',
-    diffHighlightRemoved: 'errorContainer',
-    diffAddedBg: 'surfaceContainerHigh',
-    diffAddedLineNumberBg: 'surfaceContainerHigh',
-    diffRemovedBg: 'surfaceContainerHigh',
-    diffRemovedLineNumberBg: 'surfaceContainerHigh'
+    syntaxType: 'primary'
 });
 
 /**
  * @param {Appearance} mode
  * @param {ContrastGroup} contrastGroup
  * @param {string} variantName PascalCase MCU variant name (`Monochrome`, …)
- * @returns {M3ToTuiMapping} full 50-entry map for one combination
+ * @returns {M3ToTuiMapping} 42-entry map for one combination (the 8 diff
+ * palette keys in `src/md3-diff-palettes.js` are resolved separately)
  */
 export function resolveMapping(mode, contrastGroup, variantName) {
     const mono = variantName === 'Monochrome' ? MONOCHROME_OVERRIDES : {};

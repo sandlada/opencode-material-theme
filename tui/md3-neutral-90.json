@@ -15,6 +15,12 @@
     "md3SurfaceContainerHighestLight": "#e8e1db",
     "md3OnSecondaryContainerLight": "#55514b",
     "md3OnErrorContainerLight": "#742410",
+    "md3DiffAddedLight": "#3b6a00",
+    "md3DiffAddedContainerLight": "#b7f47a",
+    "md3DiffAddedOnContainerLight": "#0e2000",
+    "md3DiffRemovedLight": "#a63b00",
+    "md3DiffRemovedContainerLight": "#ffdbce",
+    "md3DiffRemovedOnContainerLight": "#370e00",
     "md3PrimaryDark": "#cfc5b4",
     "md3SecondaryDark": "#a39d95",
     "md3TertiaryDark": "#fafdce",
@@ -28,7 +34,13 @@
     "md3OutlineDark": "#79756f",
     "md3SurfaceContainerHighestDark": "#282521",
     "md3OnSecondaryContainerDark": "#c5beb6",
-    "md3OnErrorContainerDark": "#ff9b82"
+    "md3OnErrorContainerDark": "#ff9b82",
+    "md3DiffAddedDark": "#9cd761",
+    "md3DiffAddedContainerDark": "#2b5000",
+    "md3DiffAddedOnContainerDark": "#b7f47a",
+    "md3DiffRemovedDark": "#ffb599",
+    "md3DiffRemovedContainerDark": "#7f2b00",
+    "md3DiffRemovedOnContainerDark": "#ffdbce"
   },
   "theme": {
     "primary": {
@@ -92,12 +104,12 @@
       "light": "md3SurfaceContainerHighestLight"
     },
     "diffAdded": {
-      "dark": "md3TertiaryDark",
-      "light": "md3TertiaryLight"
+      "dark": "md3DiffAddedDark",
+      "light": "md3DiffAddedLight"
     },
     "diffRemoved": {
-      "dark": "md3ErrorDark",
-      "light": "md3ErrorLight"
+      "dark": "md3DiffRemovedDark",
+      "light": "md3DiffRemovedLight"
     },
     "diffContext": {
       "dark": "md3OnSurfaceVariantDark",
@@ -108,20 +120,20 @@
       "light": "md3SecondaryLight"
     },
     "diffHighlightAdded": {
-      "dark": "md3TertiaryDark",
-      "light": "md3TertiaryLight"
+      "dark": "md3DiffAddedOnContainerDark",
+      "light": "md3DiffAddedOnContainerLight"
     },
     "diffHighlightRemoved": {
-      "dark": "md3OnErrorContainerDark",
-      "light": "md3OnErrorContainerLight"
+      "dark": "md3DiffRemovedOnContainerDark",
+      "light": "md3DiffRemovedOnContainerLight"
     },
     "diffAddedBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighLight"
+      "dark": "md3DiffAddedContainerDark",
+      "light": "md3DiffAddedContainerLight"
     },
     "diffRemovedBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighestLight"
+      "dark": "md3DiffRemovedContainerDark",
+      "light": "md3DiffRemovedContainerLight"
     },
     "diffContextBg": {
       "dark": "md3SurfaceContainerDark",
@@ -132,12 +144,12 @@
       "light": "md3OutlineLight"
     },
     "diffAddedLineNumberBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighLight"
+      "dark": "md3DiffAddedContainerDark",
+      "light": "md3DiffAddedContainerLight"
     },
     "diffRemovedLineNumberBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighestLight"
+      "dark": "md3DiffRemovedContainerDark",
+      "light": "md3DiffRemovedContainerLight"
     },
     "markdownText": {
       "dark": "md3OnSurfaceDark",

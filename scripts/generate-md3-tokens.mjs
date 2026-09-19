@@ -4,8 +4,15 @@
  * One run emits two dual-appearance files (plain + OLED). OpenCode itself
  * switches light/dark, so every `theme.*` key is a `{ dark, light }`
  * object of plain static values; the TUI cannot use `light-dark()` CSS.
- * OLED pitch-black only affects the dark scheme (the light half of an
- * OLED file matches the plain file by construction).
+ * OLED pitch-black affects the dark scheme (surface roles) plus the 4
+ * diff wash backgrounds, which resolve to pitch black in OLED dark
+ * halves; the light half of an OLED file matches the plain file by
+ * construction.
+ *
+ * 42 keys resolve to M3 scheme roles via `src/md3-mapping.js`; the 8 Git
+ * diff red/green keys resolve to fixed-seed harmonized custom-color
+ * ladders via `src/md3-diff-palettes.js` (passed as `customColors` with
+ * `blend: true` to every `createTheme` call).
  *
  * Filenames are kebab-case (`:` is illegal on Windows filenames and the
  * theme's visible name equals the filename stem):
@@ -28,6 +35,15 @@ import { Hct } from '@material/material-color-utilities';
 import { calculateContrastRatio, createTheme, formatHex, MaterialContrastLevel, MaterialVariant } from '@sandlada/mcu-helper';
 import { TUI_TOKEN_KEYS } from '../src/tui-schema.js';
 import { resolveMapping } from '../src/md3-mapping.js';
+import {
+    DIFF_CUSTOM_COLORS,
+    DIFF_OLED_BG_DEF,
+    DIFF_OLED_BG_HEX,
+    DIFF_PALETTE_KEYS,
+    DIFF_PALETTE_SLOTS,
+    DIFF_WASH_BG_KEYS,
+    toDiffDefKey
+} from '../src/md3-diff-palettes.js';
 
 const VARIANTS = Object.freeze({
     Monochrome: MaterialVariant.Monochrome,
@@ -123,8 +139,11 @@ function toDefKey(role, mode) {
 /**
  * Build one dual-appearance theme file object.
  * Values are `{ dark, light }` objects of `defs` refs (static hex in defs).
+ * Scheme-role keys resolve via the per-mode mappings; the 8 diff palette
+ * keys resolve via the custom-color groups (OLED dark wash backgrounds
+ * resolve to the pitch-black def).
  */
-function buildThemeFile(scheme, lightMapping, darkMapping) {
+function buildThemeFile(scheme, groups, lightMapping, darkMapping, oled) {
     const defs = {};
     for (const [mode, mapping] of [['light', lightMapping], ['dark', darkMapping]]) {
         const appearance = scheme[mode];
@@ -132,12 +151,37 @@ function buildThemeFile(scheme, lightMapping, darkMapping) {
             if (!(role in appearance)) fail(`mapping role '${role}' missing from generated ${mode} scheme`);
             defs[toDefKey(role, mode)] = formatHex(appearance[role]);
         }
+        for (const groupName of Object.keys(groups)) {
+            for (const slot of ['color', 'colorContainer', 'onColorContainer']) {
+                defs[toDiffDefKey(groupName, slot, mode)] = formatHex(groups[groupName][mode][slot]);
+            }
+        }
     }
+    if (oled) defs[DIFF_OLED_BG_DEF] = DIFF_OLED_BG_HEX;
     const theme = {};
     for (const key of TUI_TOKEN_KEYS) {
-        theme[key] = { dark: toDefKey(darkMapping[key], 'dark'), light: toDefKey(lightMapping[key], 'light') };
+        if (key in DIFF_PALETTE_SLOTS) {
+            const { group, slot } = DIFF_PALETTE_SLOTS[key];
+            theme[key] = {
+                dark: oled && slot === 'colorContainer' ? DIFF_OLED_BG_DEF : toDiffDefKey(group, slot, 'dark'),
+                light: toDiffDefKey(group, slot, 'light')
+            };
+        } else {
+            theme[key] = { dark: toDefKey(darkMapping[key], 'dark'), light: toDefKey(lightMapping[key], 'light') };
+        }
     }
     return { $schema: 'https://opencode.ai/theme.json', defs, theme };
+}
+
+/** Custom-color groups by name (`diffAdded`/`diffRemoved`), or fail closed. */
+function diffGroups(scheme) {
+    const groups = {};
+    for (const { name } of DIFF_CUSTOM_COLORS) {
+        const found = (scheme.customColors || []).find((g) => g.name === name);
+        if (!found) fail(`custom color group '${name}' missing from generated theme`);
+        groups[name] = found;
+    }
+    return groups;
 }
 
 // WCAG-grounded generation-time readability tiers (fail closed: a new
@@ -159,25 +203,56 @@ const MUTED_KEYS = Object.freeze([
 const WASH_PAIRS = Object.freeze([
     ['diffAdded', 'diffAddedBg'],
     ['diffRemoved', 'diffRemovedBg'],
+    ['diffHighlightAdded', 'diffAddedBg'],
+    ['diffHighlightRemoved', 'diffRemovedBg'],
     ['diffContext', 'diffContextBg']
 ]);
+
+/** Minimum circular HCT hue separation between added and removed tones. */
+const DIFF_HUE_FLOOR = 30;
+
+/** ARGB int behind one TUI key (palette-aware; OLED dark washes are black). */
+function keyArgb(appearance, groups, mapping, mode, oled, key) {
+    if (key in DIFF_PALETTE_SLOTS) {
+        const { group, slot } = DIFF_PALETTE_SLOTS[key];
+        if (oled && mode === 'dark' && slot === 'colorContainer') return 0xff000000;
+        return groups[group][mode][slot];
+    }
+    return appearance[mapping[key]];
+}
+
+function hueDistance(a, b) {
+    const d = Math.abs(Hct.fromInt(a).hue - Hct.fromInt(b).hue) % 360;
+    return d > 180 ? 360 - d : d;
+}
 
 /**
  * Fail closed when any mapped foreground is unreadable on its background.
  * Roles are scheme-dependent, so this must run per generated appearance.
  */
-function guardContrast(appearance, mapping, label, textFloor) {
+function guardContrast(appearance, groups, mapping, mode, oled, label, textFloor) {
     const violations = [];
+    const argb = (key) => keyArgb(appearance, groups, mapping, mode, oled, key);
     const check = (fgKey, bgArgb, floor, tier) => {
-        const ratio = calculateContrastRatio(appearance[mapping[fgKey]], bgArgb);
+        const ratio = calculateContrastRatio(argb(fgKey), bgArgb);
         if (ratio < floor) {
-            violations.push(`${tier} ${fgKey}=${formatHex(appearance[mapping[fgKey]])} on ${formatHex(bgArgb)} ratio ${ratio.toFixed(2)} < ${floor}`);
+            violations.push(`${tier} ${fgKey}=${formatHex(argb(fgKey))} on ${formatHex(bgArgb)} ratio ${ratio.toFixed(2)} < ${floor}`);
         }
     };
     const surface = appearance[mapping.background];
     for (const key of TEXT_KEYS) check(key, surface, textFloor, 'text');
     for (const key of MUTED_KEYS) check(key, surface, 3.0, 'muted');
-    for (const [fg, bg] of WASH_PAIRS) check(fg, appearance[mapping[bg]], 3.0, `wash(${bg})`);
+    for (const [fg, bg] of WASH_PAIRS) check(fg, argb(bg), 3.0, `wash(${bg})`);
+    // Added vs removed must stay hue-distinguishable (OLED dark washes are
+    // pitch black by design, so that half is exempt).
+    if (!(oled && mode === 'dark')) {
+        for (const [addedKey, removedKey] of [['diffAdded', 'diffRemoved'], ['diffAddedBg', 'diffRemovedBg']]) {
+            const distance = hueDistance(argb(addedKey), argb(removedKey));
+            if (distance < DIFF_HUE_FLOOR) {
+                violations.push(`hue ${addedKey}=${formatHex(argb(addedKey))} vs ${removedKey}=${formatHex(argb(removedKey))} distance ${distance.toFixed(1)} < ${DIFF_HUE_FLOOR}`);
+            }
+        }
+    }
     if (violations.length > 0) {
         fail(`unreadable ${label} mapping (override in src/md3-mapping.js):\n  ${violations.join('\n  ')}`);
     }
@@ -186,14 +261,22 @@ function guardContrast(appearance, mapping, label, textFloor) {
 async function main() {
     const args = parseArgs(process.argv.slice(2));
     const contrast = CONTRASTS[args.contrast];
-    // Each resolved (mode, contrast group) mapping must cover the schema
-    // exactly: no missing key, no extra key.
+    // Each resolved (mode, contrast group) mapping plus the diff palette
+    // keys must cover the schema exactly: no missing key, no extra key,
+    // no overlap.
     for (const mode of ['light', 'dark']) {
         const mapped = Object.keys(resolveMapping(mode, contrast.group, args.variant));
-        const missing = TUI_TOKEN_KEYS.filter((k) => !mapped.includes(k));
+        const missing = TUI_TOKEN_KEYS.filter((k) => !mapped.includes(k) && !DIFF_PALETTE_KEYS.includes(k));
         const extra = mapped.filter((k) => !TUI_TOKEN_KEYS.includes(k));
-        if (missing.length > 0 || extra.length > 0) {
-            fail(`${mode} mapping/schema drift (missing: ${missing.join(',') || 'none'}; extra: ${extra.join(',') || 'none'})`);
+        const overlap = mapped.filter((k) => DIFF_PALETTE_KEYS.includes(k));
+        if (missing.length > 0 || extra.length > 0 || overlap.length > 0) {
+            fail(`${mode} mapping/schema drift (missing: ${missing.join(',') || 'none'}; extra: ${extra.join(',') || 'none'}; overlap: ${overlap.join(',') || 'none'})`);
+        }
+        for (const key of DIFF_PALETTE_KEYS) {
+            if (!(key in DIFF_PALETTE_SLOTS)) fail(`diff palette key '${key}' missing from DIFF_PALETTE_SLOTS`);
+        }
+        for (const key of DIFF_WASH_BG_KEYS) {
+            if (!DIFF_PALETTE_KEYS.includes(key)) fail(`diff wash bg key '${key}' missing from DIFF_PALETTE_KEYS`);
         }
     }
 
@@ -203,20 +286,23 @@ async function main() {
     if (args.hue !== undefined) console.log(`hue ${args.hue} (C${args.chroma} T${args.tone}) -> source ${args.source}`);
     await mkdir(args.out, { recursive: true });
     // One createTheme call per oled flag (OLED only changes the dark scheme).
+    // Both carry the diff custom-color ladders (fixed seeds + harmonize).
     const schemes = {
         false: createTheme({
             variant: VARIANTS[args.variant],
             contrastLevel: contrast.level,
             specVersion: args.spec,
             platform: 'phone',
-            oled: false
+            oled: false,
+            customColors: DIFF_CUSTOM_COLORS
         })(args.source),
         true: createTheme({
             variant: VARIANTS[args.variant],
             contrastLevel: contrast.level,
             specVersion: args.spec,
             platform: 'phone',
-            oled: true
+            oled: true,
+            customColors: DIFF_CUSTOM_COLORS
         })(args.source)
     };
     for (const file of FILES) {
@@ -224,10 +310,11 @@ async function main() {
         const lightMapping = resolveMapping('light', contrast.group, args.variant);
         const darkMapping = resolveMapping('dark', contrast.group, args.variant);
         const scheme = schemes[String(file.oled)];
-        guardContrast(scheme.light, lightMapping, `${name} (light${file.oled ? ', oled' : ''})`, contrast.textFloor);
-        guardContrast(scheme.dark, darkMapping, `${name} (dark${file.oled ? ', oled' : ''})`, contrast.textFloor);
+        const groups = diffGroups(scheme);
+        guardContrast(scheme.light, groups, lightMapping, 'light', file.oled, `${name} (light${file.oled ? ', oled' : ''})`, contrast.textFloor);
+        guardContrast(scheme.dark, groups, darkMapping, 'dark', file.oled, `${name} (dark${file.oled ? ', oled' : ''})`, contrast.textFloor);
         const outFile = join(args.out, `${name}.json`);
-        await writeFile(outFile, `${JSON.stringify(buildThemeFile(scheme, lightMapping, darkMapping), null, 2)}\n`, 'utf8');
+        await writeFile(outFile, `${JSON.stringify(buildThemeFile(scheme, groups, lightMapping, darkMapping, file.oled), null, 2)}\n`, 'utf8');
         console.log(`wrote ${outFile}`);
     }
 }

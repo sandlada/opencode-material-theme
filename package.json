@@ -1,6 +1,6 @@
 {
   "name": "@sandlada/opencode-material-theme",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Material Design 3 (Material You) themes for the OpenCode TUI: 194 static JSON themes across 9 variants x 12 hues, plain + OLED.",
   "scripts": {
     "generate": "bun scripts/generate-md3-tokens.mjs",

@@ -15,6 +15,12 @@
     "md3SurfaceContainerHighestLight": "#eae0e1",
     "md3OnSecondaryContainerLight": "#575051",
     "md3OnErrorContainerLight": "#782232",
+    "md3DiffAddedLight": "#3b6a00",
+    "md3DiffAddedContainerLight": "#b7f47a",
+    "md3DiffAddedOnContainerLight": "#0e2000",
+    "md3DiffRemovedLight": "#bb0c40",
+    "md3DiffRemovedContainerLight": "#ffdadc",
+    "md3DiffRemovedOnContainerLight": "#400010",
     "md3PrimaryDark": "#d5c2c6",
     "md3SecondaryDark": "#a59b9d",
     "md3TertiaryDark": "#ffebfb",
@@ -28,7 +34,14 @@
     "md3OutlineDark": "#7b7475",
     "md3SurfaceContainerHighestDark": "#292526",
     "md3OnSecondaryContainerDark": "#c8bdbe",
-    "md3OnErrorContainerDark": "#ff97a3"
+    "md3OnErrorContainerDark": "#ff97a3",
+    "md3DiffAddedDark": "#9cd761",
+    "md3DiffAddedContainerDark": "#2b5000",
+    "md3DiffAddedOnContainerDark": "#b7f47a",
+    "md3DiffRemovedDark": "#ffb2b9",
+    "md3DiffRemovedContainerDark": "#91002e",
+    "md3DiffRemovedOnContainerDark": "#ffdadc",
+    "md3DiffBgOledDark": "#000000"
   },
   "theme": {
     "primary": {
@@ -92,12 +105,12 @@
       "light": "md3SurfaceContainerHighestLight"
     },
     "diffAdded": {
-      "dark": "md3TertiaryDark",
-      "light": "md3TertiaryLight"
+      "dark": "md3DiffAddedDark",
+      "light": "md3DiffAddedLight"
     },
     "diffRemoved": {
-      "dark": "md3ErrorDark",
-      "light": "md3ErrorLight"
+      "dark": "md3DiffRemovedDark",
+      "light": "md3DiffRemovedLight"
     },
     "diffContext": {
       "dark": "md3OnSurfaceVariantDark",
@@ -108,20 +121,20 @@
       "light": "md3SecondaryLight"
     },
     "diffHighlightAdded": {
-      "dark": "md3TertiaryDark",
-      "light": "md3TertiaryLight"
+      "dark": "md3DiffAddedOnContainerDark",
+      "light": "md3DiffAddedOnContainerLight"
     },
     "diffHighlightRemoved": {
-      "dark": "md3OnErrorContainerDark",
-      "light": "md3OnErrorContainerLight"
+      "dark": "md3DiffRemovedOnContainerDark",
+      "light": "md3DiffRemovedOnContainerLight"
     },
     "diffAddedBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighLight"
+      "dark": "md3DiffBgOledDark",
+      "light": "md3DiffAddedContainerLight"
     },
     "diffRemovedBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighestLight"
+      "dark": "md3DiffBgOledDark",
+      "light": "md3DiffRemovedContainerLight"
     },
     "diffContextBg": {
       "dark": "md3SurfaceContainerDark",
@@ -132,12 +145,12 @@
       "light": "md3OutlineLight"
     },
     "diffAddedLineNumberBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighLight"
+      "dark": "md3DiffBgOledDark",
+      "light": "md3DiffAddedContainerLight"
     },
     "diffRemovedLineNumberBg": {
-      "dark": "md3SurfaceContainerHighestDark",
-      "light": "md3SurfaceContainerHighestLight"
+      "dark": "md3DiffBgOledDark",
+      "light": "md3DiffRemovedContainerLight"
     },
     "markdownText": {
       "dark": "md3OnSurfaceDark",
