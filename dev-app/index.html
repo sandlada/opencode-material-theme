@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <link rel="icon" href="data:," />
+        <link rel="stylesheet" href="/src/styles.css" />
+        <title>OpenCode Theme Builder</title>
+    </head>
+    <body>
+        <div class="app">
+            <header class="appbar">
+                <div class="brand">
+                    <div class="brand-mark">M3</div>
+                    <div class="brand-copy">
+                        <h1>OpenCode Theme Builder</h1>
+                    </div>
+                </div>
+                <div class="appbar-actions">
+                    <a class="button ghost nav-link" href="./states.html">State layers</a>
+                    <button id="validate" class="button ghost" type="button">Validate</button>
+                    <button id="copy-json" class="button ghost" type="button">Copy JSON</button>
+                    <button id="download-json" class="button primary" type="button">Download JSON</button>
+                </div>
+            </header>
+
+            <main class="workspace">
+                <section class="preview-pane" aria-label="OpenCode TUI v2 preview">
+                    <div class="preview-toolbar">
+                        <div class="toolbar-group">
+                            <label class="field-inline">Mode
+                                <select id="preview-mode">
+                                    <option value="light">light</option>
+                                    <option value="dark">dark</option>
+                                </select>
+                            </label>
+                            <label class="field-inline">Tabs
+                                <select id="tabs-layout">
+                                    <option value="horizontal">horizontal</option>
+                                    <option value="vertical">vertical</option>
+                                </select>
+                            </label>
+                            <label class="field-inline">Indicators
+                                <select id="indicators">
+                                    <option value="status">status</option>
+                                    <option value="numbers">numbers</option>
+                                </select>
+                            </label>
+                            <label class="field-inline">State
+                                <select id="state-select">
+                                    <option value="default">default</option>
+                                    <option value="hover">hover</option>
+                                    <option value="focus">focus</option>
+                                    <option value="pressed">pressed</option>
+                                    <option value="selected">selected</option>
+                                    <option value="disabled">disabled</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="toolbar-group toolbar-toggles">
+                            <label class="check"><input id="sidebar-toggle" type="checkbox" checked /> Sidebar</label>
+                            <label class="check"><input id="dialog-toggle" type="checkbox" /> Dialog</label>
+                            <label class="check"><input id="debug-toggle" type="checkbox" /> Token labels</label>
+                        </div>
+                    </div>
+
+                    <div class="terminal-stage">
+                        <div class="terminal-shell">
+                            <div class="terminal-titlebar">
+                                <span class="window-dot dot-red"></span>
+                                <span class="window-dot dot-yellow"></span>
+                                <span class="window-dot dot-green"></span>
+                                <span class="terminal-title">opencode · <span data-theme-name>md3-expressive-120-v2</span></span>
+                                <span class="terminal-mode" id="terminal-mode-label">light</span>
+                            </div>
+
+                            <div class="terminal" id="terminal" data-mode="light" data-tabs-layout="horizontal" data-indicators="status" data-sidebar="true" data-state="default" data-debug="false">
+                                <div class="tui">
+                                    <div class="tabs-bar" data-token="background.raised.base">
+                                        <div class="tabs-scroll">
+                                            <div class="tab is-selected" data-token="background.action.primary.selected">
+                                                <span class="tab-indicator"><span class="indicator-number">1</span><span class="indicator-status"></span></span>
+                                                <span class="tab-title">theme-resolver</span>
+                                                <span class="tab-close">×</span>
+                                            </div>
+                                            <div class="tab is-busy">
+                                                <span class="tab-indicator"><span class="indicator-number">2</span><span class="indicator-status">⠋</span></span>
+                                                <span class="tab-title">diff-viewer</span>
+                                                <span class="tab-close">×</span>
+                                            </div>
+                                            <div class="tab is-unread">
+                                                <span class="tab-indicator"><span class="indicator-number">3</span><span class="indicator-status">•</span></span>
+                                                <span class="tab-title">schema-sync</span>
+                                                <span class="tab-close">×</span>
+                                            </div>
+                                            <div class="tab is-error">
+                                                <span class="tab-indicator"><span class="indicator-number">4</span><span class="indicator-status">•</span></span>
+                                                <span class="tab-title">broken-build</span>
+                                                <span class="tab-close">×</span>
+                                            </div>
+                                            <div class="tab is-attention">
+                                                <span class="tab-indicator"><span class="indicator-number">5</span><span class="indicator-status">!</span></span>
+                                                <span class="tab-title">permission</span>
+                                                <span class="tab-close">×</span>
+                                            </div>
+                                            <div class="tab tab-add">
+                                                <span class="tab-indicator"><span class="indicator-number">+</span><span class="indicator-status">+</span></span>
+                                                <span class="tab-title">new session</span>
+                                            </div>
+                                        </div>
+                                        <div class="tab-overflow">3 hidden</div>
+                                    </div>
+
+                                    <div class="tui-body">
+                                        <div class="main-pane">
+                                            <div class="transcript">
+                                                <div class="message-user" data-token="background.raised.base">
+                                                    <div class="message-meta">You · 11:43 PM</div>
+                                                    <div class="message-text">Build a V2 theme preview with live <code>md.sys.color</code> mapping.</div>
+                                                </div>
+
+                                                <div class="assistant">
+                                                    <div class="thinking">Thought · 2m</div>
+
+                                                    <div class="markdown">
+                                                        <h1>Theme preview</h1>
+                                                        <p>
+                                                            Map every token to a <a href="#">Material system color</a> and inspect it in
+                                                            <strong>real time</strong>. This paragraph also shows <em>emphasis</em> and
+                                                            <code>inline code</code>.
+                                                        </p>
+                                                        <blockquote>Tokens resolve per light and dark mode.</blockquote>
+                                                        <ul>
+                                                            <li>text, surfaces, borders</li>
+                                                            <li>diff, markdown, syntax</li>
+                                                        </ul>
+                                                        <ol>
+                                                            <li>pick a variant</li>
+                                                            <li>tune the mapping</li>
+                                                        </ol>
+                                                        <table class="md-table">
+                                                            <thead>
+                                                                <tr><th>Token</th><th>Role</th><th>Resolved</th></tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr><td><code>text.base</code></td><td data-token-role="text.base"></td><td><code data-token-value="text.base"></code></td></tr>
+                                                                <tr><td><code>background.base</code></td><td data-token-role="background.base"></td><td><code data-token-value="background.base"></code></td></tr>
+                                                                <tr><td><code>markdown.heading</code></td><td data-token-role="markdown.heading"></td><td><code data-token-value="markdown.heading"></code></td></tr>
+                                                                <tr><td><code>syntax.keyword</code></td><td data-token-role="syntax.keyword"></td><td><code data-token-value="syntax.keyword"></code></td></tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <hr />
+                                                        <div class="image-placeholder" data-token="background.raised.high">
+                                                            <span class="image-glyph">▧</span>
+                                                            <span class="image-text">image.png</span>
+                                                        </div>
+                                                        <pre class="code-block" data-token="background.raised.base"><code><span class="syn-comment">// resolve a role</span>
+<span class="syn-keyword">export function</span> <span class="syn-function">resolve</span>(<span class="syn-variable">role</span>) {
+    <span class="syn-keyword">const</span> <span class="syn-variable">accent</span> = <span class="syn-string">"primary"</span>;
+    <span class="syn-keyword">return</span> <span class="syn-number">42</span> <span class="syn-operator">??</span> <span class="syn-type">Role</span><span class="syn-punctuation">.</span><span class="syn-function">from</span>(<span class="syn-variable">accent</span>);
+}</code></pre>
+                                                    </div>
+
+                                                    <div class="tool-call" data-token="background.raised.base">
+                                                        <div class="tool-head">
+                                                            <span class="tool-name">Build</span>
+                                                            <span class="tool-status"><span class="spinner">⠋</span> running</span>
+                                                            <span class="tool-duration">6.5s</span>
+                                                        </div>
+                                                        <pre class="tool-output">$ bun run build:app
+vite v8.3.5 building for production...
+✓ 42 modules transformed.
+dist/index.html                  0.64 kB
+dist/assets/index-*.css         14.21 kB
+dist/assets/index-*.js          58.77 kB</pre>
+                                                    </div>
+
+                                                    <div class="diff-card" data-token="border.base">
+                                                        <div class="diff-head">
+                                                            <span>src/dynamic/dynamic.js</span>
+                                                            <span class="diff-stat">+12 −4</span>
+                                                        </div>
+                                                        <div class="diff-body">
+                                                            <div class="diff-line diff-hunk">
+                                                                <span class="diff-gutter">@@</span>
+                                                                <span class="diff-sign"></span>
+                                                                <span class="diff-code">@@ -12,7 +12,9 @@</span>
+                                                            </div>
+                                                            <div class="diff-line diff-context">
+                                                                <span class="diff-gutter">12</span>
+                                                                <span class="diff-sign"></span>
+                                                                <span class="diff-code">export function buildThemeDocument({ scheme }) {</span>
+                                                            </div>
+                                                            <div class="diff-line diff-added">
+                                                                <span class="diff-gutter diff-added-bg">13</span>
+                                                                <span class="diff-sign diff-added-sign">+</span>
+                                                                <span class="diff-code">  const light = <span class="diff-highlight-added">buildTokenTree</span>(mapping, scheme.light, "light");</span>
+                                                            </div>
+                                                            <div class="diff-line diff-added">
+                                                                <span class="diff-gutter diff-added-bg">14</span>
+                                                                <span class="diff-sign diff-added-sign">+</span>
+                                                                <span class="diff-code">  const dark = buildTokenTree(mapping, scheme.dark, "dark");</span>
+                                                            </div>
+                                                            <div class="diff-line diff-removed">
+                                                                <span class="diff-gutter diff-removed-bg">15</span>
+                                                                <span class="diff-sign diff-removed-sign">−</span>
+                                                                <span class="diff-code">  return buildLegacyTheme();</span>
+                                                            </div>
+                                                            <div class="diff-line diff-context">
+                                                                <span class="diff-gutter">16</span>
+                                                                <span class="diff-sign"></span>
+                                                                <span class="diff-code">}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="feedback-grid">
+                                                        <div class="feedback-card feedback-error">
+                                                            <span class="feedback-title">Error</span>
+                                                            <span class="feedback-text">mapping missing · <span class="feedback-muted">add a role</span></span>
+                                                        </div>
+                                                        <div class="feedback-card feedback-warning">
+                                                            <span class="feedback-title">Warning</span>
+                                                            <span class="feedback-text">low contrast · <span class="feedback-muted">4.1</span></span>
+                                                        </div>
+                                                        <div class="feedback-card feedback-success">
+                                                            <span class="feedback-title">Success</span>
+                                                            <span class="feedback-text">theme exported · <span class="feedback-muted">v2</span></span>
+                                                        </div>
+                                                        <div class="feedback-card feedback-info">
+                                                            <span class="feedback-title">Info</span>
+                                                            <span class="feedback-text">schema 2025 · <span class="feedback-muted">59 roles</span></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="action-demo" data-token="background.raised.base">
+                                                        <div class="demo-label">Action states · <span id="demo-state-label">default</span></div>
+                                                        <div class="demo-buttons">
+                                                            <button class="demo-primary" type="button">Primary</button>
+                                                            <button class="demo-secondary" type="button">Secondary</button>
+                                                            <button class="demo-destructive" type="button">Delete</button>
+                                                            <div class="demo-field">Search themes…</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="composer" data-token="background.raised.base">
+                                                <div class="composer-accent"></div>
+                                                <div class="composer-body">
+                                                    <div class="composer-input"><span class="composer-cursor">█</span><span class="composer-text">Describe the next change…</span></div>
+                                                    <div class="composer-foot">
+                                                        <span class="agent-chip"><span class="agent-dot"></span>Build</span><span class="dot-sep">·</span><span>GPT-5.2</span><span class="dot-sep">·</span><span>minimal</span>
+                                                        <span class="composer-hint">ctrl+p commands</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="statusbar">
+                                                <span>~/projects/opencode-material-theme</span>
+                                                <span>16.8K (2%) · $0.00</span>
+                                                <span>ctrl+p commands</span>
+                                            </div>
+                                        </div>
+
+                                        <aside class="sidebar" data-token="background.raised.base">
+                                            <div class="sidebar-head">
+                                                <div class="sidebar-title">theme-resolver</div>
+                                                <div class="sidebar-sub">session 01</div>
+                                            </div>
+                                            <div class="sidebar-scroll">
+                                                <section>
+                                                    <h3>Context</h3>
+                                                    <div class="side-row"><span>tokens</span><span>16,818</span></div>
+                                                    <div class="side-row"><span>used</span><span>2%</span></div>
+                                                    <div class="side-row"><span>spent</span><span>$0.00</span></div>
+                                                </section>
+                                                <section>
+                                                    <h3>MCP</h3>
+                                                    <div class="side-row"><span class="status-dot ok"></span><span>context7</span><span class="side-muted">connected</span></div>
+                                                    <div class="side-row"><span class="status-dot ok"></span><span>playwright</span><span class="side-muted">connected</span></div>
+                                                </section>
+                                                <section>
+                                                    <h3>LSP</h3>
+                                                    <p class="side-muted">LSPs activate as files are read</p>
+                                                </section>
+                                                <section>
+                                                    <h3>Todo</h3>
+                                                    <div class="todo"><span class="todo-check">✓</span><span>schema snapshot</span></div>
+                                                    <div class="todo"><span class="todo-check">✓</span><span>v2 document builder</span></div>
+                                                    <div class="todo"><span class="todo-check is-open">○</span><span>dev-app preview</span></div>
+                                                </section>
+                                            </div>
+                                            <div class="sidebar-foot"><span>~/projects/opencode-material-theme</span><span class="side-muted">v2.1.4</span></div>
+                                        </aside>
+                                    </div>
+                                </div>
+
+                                <div class="dialog-backdrop" hidden>
+                                    <div class="dialog" data-token="@dialog.background.base">
+                                        <div class="dialog-head"><span>Select theme</span><span class="dialog-close">×</span></div>
+                                        <div class="dialog-search">Search themes…</div>
+                                        <div class="dialog-list">
+                                            <div class="dialog-item is-selected">md3-expressive-120-v2 <span>current</span></div>
+                                            <div class="dialog-item">md3-tonal-spot-270-v2</div>
+                                            <div class="dialog-item">md3-monochrome-0-v2</div>
+                                            <div class="dialog-item is-hovered">md3-fidelity-150-oled-v2</div>
+                                        </div>
+                                        <div class="dialog-actions">
+                                            <button class="dialog-btn secondary" type="button">Cancel</button>
+                                            <button class="dialog-btn destructive" type="button">Delete</button>
+                                            <button class="dialog-btn primary" type="button">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="controls-pane" aria-label="Theme controls">
+                    <div class="controls-top">
+                        <div class="generator-head">
+                            <div>
+                                <h2>MD3 scheme</h2>
+                                <p>Pick a variant and source; tokens derive automatically.</p>
+                            </div>
+                            <div class="source-badge"><span id="source-swatch" class="source-swatch"></span><code id="source-label">#6d7f00</code></div>
+                        </div>
+                        <div id="scheme-row" class="generator-grid">
+                            <label>Variant<select id="variant"></select></label>
+                            <label>Contrast<select id="contrast"></select></label>
+                            <label class="check oled-check"><input id="oled" type="checkbox" /> OLED dark</label>
+                            <div class="source-mode" role="group" aria-label="Source color mode">
+                                <button id="source-mode-hue" class="segment is-active" type="button">Hue</button>
+                                <button id="source-mode-hex" class="segment" type="button">Hex</button>
+                            </div>
+                        </div>
+                        <div id="hue-fields" class="generator-grid">
+                            <label>Hue<select id="hue"></select></label>
+                            <label>Chroma<input id="chroma" type="number" min="0" max="150" step="1" /></label>
+                            <label>Tone<input id="tone" type="number" min="0" max="100" step="1" /></label>
+                        </div>
+                        <div id="hex-fields" class="generator-grid" hidden>
+                            <label class="span-2">Source hex
+                                <span class="hex-row"><input id="source-color" type="color" /><input id="source-hex" type="text" spellcheck="false" /></span>
+                            </label>
+                        </div>
+                        <label class="theme-name-field">Theme name<input id="theme-name" type="text" spellcheck="false" /></label>
+                    </div>
+
+                    <div class="controls-scroll">
+                        <div class="search-row">
+                            <input id="token-search" type="search" placeholder="Filter tokens…" autocomplete="off" />
+                            <span class="search-hint">⌘K</span>
+                        </div>
+                        <div id="palette"></div>
+                        <div id="contrast-panel"></div>
+                        <div id="controls"></div>
+                    </div>
+
+                    <footer class="controls-footer">
+                        <div class="footer-file"><code id="theme-file">md3-expressive-120-v2.json</code></div>
+                        <div class="footer-meta">
+                            <span id="token-count">104 tokens</span>
+                            <span id="schema-status">schema</span>
+                            <span id="contrast-status">contrast</span>
+                        </div>
+                    </footer>
+                </aside>
+            </main>
+
+            <div id="toast-host" class="toast-host" aria-live="polite"></div>
+        </div>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+</html>

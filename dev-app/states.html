@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="light" />
+        <link rel="icon" href="data:," />
+        <link rel="stylesheet" href="/src/styles.css" />
+        <title>State layer explorer · OpenCode Theme Builder</title>
+    </head>
+    <body>
+        <div class="app">
+            <header class="appbar">
+                <div class="brand">
+                    <div class="brand-mark">M3</div>
+                    <div class="brand-copy">
+                        <h1>OpenCode Theme Builder</h1>
+                    </div>
+                </div>
+                <div class="appbar-actions">
+                    <a class="button ghost nav-link" href="./index.html">← Theme Builder</a>
+                </div>
+            </header>
+
+            <main class="states-page">
+                <div class="states-wrap">
+                    <div class="states-controls" aria-label="Scheme controls">
+                        <label class="field-inline">Variant
+                            <select id="st-variant"></select>
+                        </label>
+                        <label class="field-inline">Hue
+                            <select id="st-hue"></select>
+                        </label>
+                        <label class="field-inline">Chroma
+                            <input id="st-chroma" type="number" min="0" max="150" step="1" />
+                        </label>
+                        <label class="field-inline">Tone
+                            <input id="st-tone" type="number" min="0" max="100" step="1" />
+                        </label>
+                        <label class="field-inline">Contrast
+                            <select id="st-contrast"></select>
+                        </label>
+                        <label class="field-inline">Mode
+                            <select id="st-mode">
+                                <option value="light">light</option>
+                                <option value="dark">dark</option>
+                            </select>
+                        </label>
+                        <label class="check"><input id="st-oled" type="checkbox" /> OLED dark</label>
+                        <div class="source-badge"><span id="st-source-swatch" class="source-swatch"></span><code id="st-source-label"></code></div>
+                    </div>
+
+                    <p class="states-intro">
+                        Every stateful <code>OpenCodeDynamic</code> token family
+                        (<code>text.action.*</code>, <code>text.formfield</code>,
+                        <code>background.action.*</code>, <code>background.formfield</code>)
+                        with its resolved states for the current scheme and mode:
+                        hover 8%, focus 10% and pressed 10% are state-layer
+                        derivations over the base, <code>$selected</code> stays
+                        explicit, and <code>$disabled</code> is the
+                        <code>outline-variant</code> 32% wash over
+                        <code>surface</code> (disabled text is
+                        <code>outline</code>). Below the state matrix,
+                        stateless tokens (<code>border</code>,
+                        <code>scrollbar</code>, <code>diff</code>,
+                        <code>syntax</code>, <code>markdown</code> and the
+                        text/background singletons) list their resolved value
+                        for the current mode.
+                    </p>
+
+                    <div id="states-matrix"></div>
+
+                    <p class="states-foot">Same math as the theme builder (<code>src/dynamic/state-layer.js</code>) — what you see here is what auto state rows resolve to.</p>
+                </div>
+            </main>
+
+            <div id="toast-host" class="toast-host" aria-live="polite"></div>
+        </div>
+        <script type="module" src="/src/states.js"></script>
+    </body>
+</html>
