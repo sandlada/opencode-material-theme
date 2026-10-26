@@ -1,17 +1,20 @@
 # MD3 Themes for OpenCode TUI
 
-194 static [Material Design 3](https://m3.material.io/) (Material You) themes
+194 [Material Design 3](https://m3.material.io/) (Material You) themes
 for the [OpenCode](https://opencode.ai/) TUI: 9 variants × 12 hues
-(`monochrome` only ships hue `0`),
-plain + OLED, each file carrying **both** light and dark appearances
-(OpenCode switches itself).
+(`monochrome` only ships hue `0`), plain + OLED. Each file carries
+**both** light and dark appearances (OpenCode switches itself).
+
+> Active set is generated from `src/dynamic/` (`OpenCodeDynamicSchema` +
+> `OpenCodeDynamic`: MD variant + HCT source in, all v2 tokens out).
+> `deprecated-theme/` keeps the archived V1 static set.
 
 | Light                                                                                                                                            | Dark                                                                                                                                           |
 | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Fidelity 150 light OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/fidelity-150-light-oled.png)             | ![Fidelity 150 dark OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/fidelity-150-dark-oled.png)             |
-| ![Expressive 30 Light OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/real-demo-expressive-30-light-oled.png) | ![Expressive 30 Dark OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/real-demo-expressive-30-dark-oled.png) |
+| ![Monochrome Light](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/monochrome-light.png)                           | ![Content 150 Dark](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/content-150-dark.png)             |
+| ![Vibrant 90 Light](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/vibrant-90-light.png)                           | ![Content 330 Dark OLED](https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/docs/content-330-oled-dark.png) |
 
-More screenshots in [`docs/` on GitHub](https://github.com/sandlada/opencode-material-theme/tree/main/docs).
+More screenshots in [`docs/ on GitHub`](https://github.com/sandlada/opencode-material-theme/tree/main/docs).
 
 ## Requirements
 
@@ -21,90 +24,55 @@ More screenshots in [`docs/` on GitHub](https://github.com/sandlada/opencode-mat
 
 ## Install
 
-One-click full install (194 themes) into your user themes directory
-(requires the published package, v0.0.1+):
-
 ```sh
 npx -y -p @sandlada/opencode-material-theme opencode-md3-themes install
 ```
 
-Preview without installing:
+Subset example (expressive greens, plain only):
 
 ```sh
-npx -y -p @sandlada/opencode-material-theme opencode-md3-themes --dry-run
+opencode-md3-themes install --variant expressive --hue 120,150 --oled plain
 ```
 
-Install a subset (expressive greens, plain only):
-
-```sh
-npx -y -p @sandlada/opencode-material-theme opencode-md3-themes install --variant expressive --hue 120,150 --oled plain
-```
-
-List what the package ships:
-
-```sh
-npx -y -p @sandlada/opencode-material-theme opencode-md3-themes list
-```
-
-Manual install via git (bash):
+Or copy the files manually (`src/themes/` — the v2 set):
 
 ```sh
 git clone --depth 1 https://github.com/sandlada/opencode-material-theme.git
 mkdir -p ~/.config/opencode/themes
-cp opencode-material-theme/tui/*.json ~/.config/opencode/themes/
+cp opencode-material-theme/src/themes/*.json ~/.config/opencode/themes/
 ```
 
-Manual install via git (PowerShell):
-
-```powershell
-git clone --depth 1 https://github.com/sandlada/opencode-material-theme.git
-New-Item -ItemType Directory -Path "$env:USERPROFILE\.config\opencode\themes" -Force
-Copy-Item -Path ".\opencode-material-theme\tui\*.json" -Destination "$env:USERPROFILE\.config\opencode\themes\" -Force
-```
-
-Single theme via curl:
-
-```sh
-mkdir -p ~/.config/opencode/themes
-curl -o ~/.config/opencode/themes/md3-expressive-120-oled.json \
-  https://raw.githubusercontent.com/sandlada/opencode-material-theme/main/tui/md3-expressive-120-oled.json
-```
-
-## Use
-
-Pick a theme inside OpenCode with `/theme`, or pin one in `tui.json`:
-
-```json
-{ "$schema": "https://opencode.ai/tui.json", "theme": "md3-expressive-120-oled" }
-```
+Then pick a theme with `/theme`. Theme files are not hot-reloaded: restart
+the TUI (or leave and re-enter the session) after installing or switching
+light/dark mode — see the upstream-issue note below.
 
 ## Theme names
 
-`md3-{variant}-{hue}[-oled][-high|-reduced].json`, all lowercase:
+`md3-{variant}-{hue}[-oled].json`, all lowercase:
 
 - `{variant}`: `monochrome`, `neutral`, `tonal-spot`, `vibrant`,
   `expressive`, `fidelity`, `content`, `rainbow`, `fruit-salad`
-- `{hue}`: HCT hue `0-330` step `30` (`monochrome` only ships hue `0`);
-  every source is `Hct.from(hue, 75, 50)`
-- each file holds light **and** dark (`{ "dark": …, "light": … }`);
-  `-oled` marks the file whose dark half is pitch-black
+- `{hue}`: HCT hue `0-330` step `30` (`monochrome` only ships hue `0`,
+  source is `Hct.from(hue, 75, 50)`)
+- `-oled`: the file whose dark half is pitch-black
 
-## Regenerate from source
+## Contributing
 
 ```sh
 npm install
-bun scripts/generate-md3-matrix.mjs --out ./tui
+npm --prefix dev-app install
+npm run dev:app        # theme lab: variant/HCT controls, TUI mock, export
+bun scripts/check-dynamic.mjs                    # validate 648 combos
+bun scripts/generate-dynamic-matrix.mjs --out ./src/themes   # rebuild 194
 ```
 
-Single hue:
+## Known upstream issue
 
-```sh
-bun scripts/generate-md3-tokens.mjs --variant Expressive --hue 120 --out ./tui
-```
-
-Generation fails closed on schema drift, unknown roles, and contrast
-violations (text 4.5, muted/wash 3.0; reduced text 3.0 by design).
-See `AGENTS.md` for the mapping and naming contracts.
+Light/dark switching can leave stale colors (e.g. markdown list text keeps
+the old mode's color) until restart — an OpenCode TUI bug, not a theme bug:
+[anomalyco/opencode#55735](https://github.com/anomalyco/opencode/issues/55735),
+fix PR [anomalyco/opencode#56323](https://github.com/anomalyco/opencode/pull/56323)
+(open, unmerged).
 
 ## License
 
