@@ -1,0 +1,475 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "base": {
+    "categorical": [
+      "blue",
+      "purple",
+      "green",
+      "red"
+    ],
+    "text": {
+      "base": "#053620",
+      "muted": "#38644a",
+      "faint": "#538064",
+      "action": {
+        "primary": {
+          "base": "#cfffce",
+          "$hovered": "#bef3c1",
+          "$focused": "#baf0be",
+          "$pressed": "#baf0be",
+          "$selected": "#cfffce",
+          "$disabled": "#538064"
+        },
+        "secondary": {
+          "base": "#caffdb",
+          "$hovered": "#baf3cf",
+          "$focused": "#b6f0cc",
+          "$pressed": "#b6f0cc",
+          "$selected": "#005e39",
+          "$disabled": "#538064"
+        },
+        "destructive": {
+          "base": "#ffefec",
+          "$hovered": "#f9dfd9",
+          "$focused": "#f7dbd4",
+          "$pressed": "#f7dbd4",
+          "$selected": "#ffefec",
+          "$disabled": "#538064"
+        }
+      },
+      "formfield": {
+        "base": "#053620",
+        "$hovered": "#164630",
+        "$focused": "#1b4a34",
+        "$pressed": "#1b4a34",
+        "$selected": "#005e39",
+        "$disabled": "#538064"
+      },
+      "feedback": {
+        "error": {
+          "base": "#520c00",
+          "muted": "#520c00"
+        },
+        "warning": {
+          "base": "#676739",
+          "muted": "#676739"
+        },
+        "success": {
+          "base": "#4e6c4e",
+          "muted": "#4e6c4e"
+        },
+        "info": {
+          "base": "#455e78",
+          "muted": "#455e78"
+        }
+      }
+    },
+    "background": {
+      "base": "#dcffe5",
+      "raised": {
+        "base": "#bbf6ce",
+        "high": "#c7fdd8",
+        "max": "#ffffff"
+      },
+      "action": {
+        "primary": {
+          "base": "#006a2a",
+          "$hovered": "#117637",
+          "$focused": "#15793a",
+          "$pressed": "#15793a",
+          "$selected": "#006a2a",
+          "$disabled": "#c1e8cd"
+        },
+        "secondary": {
+          "base": "#006940",
+          "$hovered": "#10754c",
+          "$focused": "#147850",
+          "$pressed": "#147850",
+          "$selected": "#7cfbb4",
+          "$disabled": "#c1e8cd"
+        },
+        "destructive": {
+          "base": "#b02500",
+          "$hovered": "#b63513",
+          "$focused": "#b83918",
+          "$pressed": "#b83918",
+          "$selected": "#b02500",
+          "$disabled": "#c1e8cd"
+        }
+      },
+      "formfield": {
+        "base": "#bbf6ce",
+        "$hovered": "#ace7c0",
+        "$focused": "#a9e3bd",
+        "$pressed": "#a9e3bd",
+        "$selected": "#7cfbb4",
+        "$disabled": "#c1e8cd"
+      },
+      "feedback": {
+        "error": {
+          "base": "#f95630"
+        },
+        "warning": {
+          "base": "#e7e6ad"
+        },
+        "success": {
+          "base": "#caebc7"
+        },
+        "info": {
+          "base": "#bdd7f6"
+        }
+      }
+    },
+    "border": {
+      "base": "#89b899"
+    },
+    "scrollbar": {
+      "base": "#538064"
+    },
+    "diff": {
+      "text": {
+        "added": "#257335",
+        "removed": "#6c2400",
+        "context": "#38644a",
+        "hunkHeader": "#006940"
+      },
+      "background": {
+        "added": "#a5f5a9",
+        "removed": "#ffdbce",
+        "context": "#bbf6ce"
+      },
+      "highlight": {
+        "added": "#257335",
+        "removed": "#6c2400"
+      },
+      "lineNumber": {
+        "text": "#538064",
+        "background": {
+          "added": "#a5f5a9",
+          "removed": "#ffdbce"
+        }
+      }
+    },
+    "syntax": {
+      "comment": "#538064",
+      "keyword": "#006940",
+      "function": "#006a2a",
+      "variable": "#006572",
+      "string": "#006572",
+      "number": "#005e39",
+      "type": "#006940",
+      "operator": "#38644a",
+      "punctuation": "#053620"
+    },
+    "markdown": {
+      "text": "#053620",
+      "heading": "#006a2a",
+      "link": "#006940",
+      "linkText": "#006572",
+      "code": "#005e39",
+      "blockQuote": "#38644a",
+      "emphasis": "#006940",
+      "strong": "#006a2a",
+      "horizontalRule": "#538064",
+      "listItem": "#053620",
+      "listEnumeration": "#006940",
+      "image": "#006940",
+      "imageText": "#006572",
+      "codeBlock": "#053620"
+    }
+  },
+  "light": {
+    "hue": {
+      "gray": {
+        "100": "#083821",
+        "200": "#3b674d",
+        "300": "#548165",
+        "400": "#6d9b7d",
+        "500": "#87b697",
+        "600": "#a2d2b1",
+        "700": "#afe0bf",
+        "800": "#bdeecc",
+        "900": "#cbfcda"
+      },
+      "red": {
+        "100": "#621100",
+        "200": "#b52700",
+        "300": "#d9401b",
+        "400": "#fc5932",
+        "500": "#ff8b6f",
+        "600": "#ffb4a3",
+        "700": "#ffc8bb",
+        "800": "#ffdad2",
+        "900": "#ffede9"
+      },
+      "blue": {
+        "100": "#003913",
+        "200": "#006e2c",
+        "300": "#008a39",
+        "400": "#00a747",
+        "500": "#14c557",
+        "600": "#44e26f",
+        "700": "#56f07c",
+        "800": "#68ff89",
+        "900": "#c6ffc7"
+      },
+      "purple": {
+        "100": "#00363e",
+        "200": "#006876",
+        "300": "#008394",
+        "400": "#009fb3",
+        "500": "#00bcd4",
+        "600": "#00daf5",
+        "700": "#55e6ff",
+        "800": "#9fefff",
+        "900": "#d3f7ff"
+      },
+      "green": {
+        "100": "#003920",
+        "200": "#006d42",
+        "300": "#008954",
+        "400": "#0ea568",
+        "500": "#3ec181",
+        "600": "#5edd9a",
+        "700": "#6deca7",
+        "800": "#7cfbb4",
+        "900": "#c0ffd5"
+      },
+      "accent": "$hue.purple",
+      "interactive": "$hue.blue",
+      "neutral": "$hue.gray"
+    }
+  },
+  "dark": {
+    "hue": {
+      "gray": {
+        "100": "#bdeecc",
+        "200": "#a2d2b1",
+        "300": "#87b697",
+        "400": "#6d9b7d",
+        "500": "#548165",
+        "600": "#3b674d",
+        "700": "#234f37",
+        "800": "#083821",
+        "900": "#002111"
+      },
+      "red": {
+        "100": "#ffdad2",
+        "200": "#ffb4a3",
+        "300": "#ff8b6f",
+        "400": "#fc5932",
+        "500": "#d9401b",
+        "600": "#b52700",
+        "700": "#8a1b00",
+        "800": "#621100",
+        "900": "#3d0700"
+      },
+      "blue": {
+        "100": "#68ff89",
+        "200": "#44e26f",
+        "300": "#14c557",
+        "400": "#00a747",
+        "500": "#008a39",
+        "600": "#006e2c",
+        "700": "#00531f",
+        "800": "#003913",
+        "900": "#002108"
+      },
+      "purple": {
+        "100": "#9fefff",
+        "200": "#00daf5",
+        "300": "#00bcd4",
+        "400": "#009fb3",
+        "500": "#008394",
+        "600": "#006876",
+        "700": "#004e59",
+        "800": "#00363e",
+        "900": "#001f25"
+      },
+      "green": {
+        "100": "#7cfbb4",
+        "200": "#5edd9a",
+        "300": "#3ec181",
+        "400": "#0ea568",
+        "500": "#008954",
+        "600": "#006d42",
+        "700": "#005231",
+        "800": "#003920",
+        "900": "#002111"
+      },
+      "accent": "$hue.purple",
+      "interactive": "$hue.blue",
+      "neutral": "$hue.gray"
+    },
+    "text": {
+      "base": "#cbfcda",
+      "muted": "#87b697",
+      "faint": "#527f63",
+      "action": {
+        "primary": {
+          "base": "#00531f",
+          "$hovered": "#075f26",
+          "$focused": "#086328",
+          "$pressed": "#086328",
+          "$selected": "#00531f",
+          "$disabled": "#527f63"
+        },
+        "secondary": {
+          "base": "#005e39",
+          "$hovered": "#0a6b43",
+          "$focused": "#0c6e45",
+          "$pressed": "#0c6e45",
+          "$selected": "#e2ffe9",
+          "$disabled": "#527f63"
+        },
+        "destructive": {
+          "base": "#450900",
+          "$hovered": "#541106",
+          "$focused": "#581408",
+          "$pressed": "#581408",
+          "$selected": "#450900",
+          "$disabled": "#527f63"
+        }
+      },
+      "formfield": {
+        "base": "#cbfcda",
+        "$hovered": "#bbe8c9",
+        "$focused": "#b7e3c4",
+        "$pressed": "#b7e3c4",
+        "$selected": "#e2ffe9",
+        "$disabled": "#527f63"
+      },
+      "feedback": {
+        "error": {
+          "base": "#ffd2c8",
+          "muted": "#ffd2c8"
+        },
+        "warning": {
+          "base": "#b9b883",
+          "muted": "#b9b883"
+        },
+        "success": {
+          "base": "#9dbe9b",
+          "muted": "#9dbe9b"
+        },
+        "info": {
+          "base": "#9eb7d5",
+          "muted": "#9eb7d5"
+        }
+      }
+    },
+    "background": {
+      "base": "#000000",
+      "raised": {
+        "base": "#001f0f",
+        "high": "#00180b",
+        "max": "#000000"
+      },
+      "action": {
+        "primary": {
+          "base": "#52ee79",
+          "$hovered": "#4be272",
+          "$focused": "#4adf70",
+          "$pressed": "#4adf70",
+          "$selected": "#52ee79",
+          "$disabled": "#0c1a12"
+        },
+        "secondary": {
+          "base": "#7cfbb4",
+          "$hovered": "#72eeaa",
+          "$focused": "#70eba8",
+          "$pressed": "#70eba8",
+          "$selected": "#006d42",
+          "$disabled": "#0c1a12"
+        },
+        "destructive": {
+          "base": "#ff7351",
+          "$hovered": "#f06b4b",
+          "$focused": "#ec6849",
+          "$pressed": "#ec6849",
+          "$selected": "#ff7351",
+          "$disabled": "#0c1a12"
+        }
+      },
+      "formfield": {
+        "base": "#001f0f",
+        "$hovered": "#10311f",
+        "$focused": "#143523",
+        "$pressed": "#143523",
+        "$selected": "#006d42",
+        "$disabled": "#0c1a12"
+      },
+      "feedback": {
+        "error": {
+          "base": "#b92902"
+        },
+        "warning": {
+          "base": "#49491e"
+        },
+        "success": {
+          "base": "#314d32"
+        },
+        "info": {
+          "base": "#304962"
+        }
+      }
+    },
+    "border": {
+      "base": "#245038"
+    },
+    "scrollbar": {
+      "base": "#527f63"
+    },
+    "diff": {
+      "text": {
+        "added": "#a5f5a9",
+        "removed": "#ffdbce",
+        "context": "#87b697",
+        "hunkHeader": "#7cfbb4"
+      },
+      "background": {
+        "added": "#1d6c30",
+        "removed": "#9a4520",
+        "context": "#001f0f"
+      },
+      "highlight": {
+        "added": "#a5f5a9",
+        "removed": "#ffdbce"
+      },
+      "lineNumber": {
+        "text": "#527f63",
+        "background": {
+          "added": "#1d6c30",
+          "removed": "#9a4520"
+        }
+      }
+    },
+    "syntax": {
+      "comment": "#527f63",
+      "keyword": "#7cfbb4",
+      "function": "#52ee79",
+      "variable": "#86ecff",
+      "string": "#86ecff",
+      "number": "#e2ffe9",
+      "type": "#7cfbb4",
+      "operator": "#87b697",
+      "punctuation": "#cbfcda"
+    },
+    "markdown": {
+      "text": "#cbfcda",
+      "heading": "#52ee79",
+      "link": "#7cfbb4",
+      "linkText": "#86ecff",
+      "code": "#e2ffe9",
+      "blockQuote": "#87b697",
+      "emphasis": "#7cfbb4",
+      "strong": "#52ee79",
+      "horizontalRule": "#527f63",
+      "listItem": "#cbfcda",
+      "listEnumeration": "#7cfbb4",
+      "image": "#7cfbb4",
+      "imageText": "#86ecff",
+      "codeBlock": "#cbfcda"
+    }
+  }
+}
