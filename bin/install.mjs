@@ -18,7 +18,7 @@ import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const PACKAGE_DIR = dirname(fileURLToPath(import.meta.url));
-const SOURCE_DIR = join(PACKAGE_DIR, '..', 'tui');
+const SOURCE_DIR = join(PACKAGE_DIR, '..', 'src', 'themes');
 
 function fail(message) {
     console.error(`error: ${message}`);

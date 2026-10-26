@@ -3,8 +3,13 @@
   "version": "0.0.3",
   "description": "Material Design 3 (Material You) themes for the OpenCode TUI: 194 static JSON themes across 9 variants x 12 hues, plain + OLED.",
   "scripts": {
-    "generate": "bun scripts/generate-md3-tokens.mjs",
-    "matrix": "bun scripts/generate-md3-matrix.mjs --out ./tui"
+    "dev:app": "npm --prefix dev-app run dev",
+    "build:app": "npm --prefix dev-app run build",
+    "check:dynamic": "bun scripts/check-dynamic.mjs",
+    "generate:dynamic": "bun scripts/generate-dynamic-theme.mjs",
+    "generate:matrix": "bun scripts/generate-dynamic-matrix.mjs --out ./src/themes",
+    "sync:test-theme": "bun scripts/watch-test-theme.mjs --once",
+    "watch:test-theme": "bun scripts/watch-test-theme.mjs"
   },
   "keywords": [
     "opencode",
@@ -21,7 +26,8 @@
   "license": "MIT",
   "type": "module",
   "files": [
-    "tui/",
+    "deprecated-theme/",
+    "src/themes/",
     "bin/",
     "README.md",
     "LICENSE"

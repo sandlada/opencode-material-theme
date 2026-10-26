@@ -3,7 +3,11 @@ node_modules
 !README.md
 !SECURITY.md
 !CODE_OF_CONDUCT.md
+!dev-app/README.md
 package-lock.json
+pnpm-lock.yaml
+# local dev artifact: single-theme generator output, synced to opencode config
+test-theme.json
 dist
 build
 output
@@ -14,3 +18,4 @@ output
 .jules
 superpower
 superpowers
+.playwright-mcp
